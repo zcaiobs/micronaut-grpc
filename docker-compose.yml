@@ -1,0 +1,13 @@
+services:
+  mysql:
+    image: mysql
+    container_name: mysql-micronaut-grpc
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+    - 3306:3306
+    volumes:
+    - micronaut_grpc_db:/var/lib/mysql
+
+volumes:
+  micronaut_grpc_db:

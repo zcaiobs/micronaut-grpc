@@ -1,22 +1,38 @@
 syntax = "proto3";
 
-option java_multiple_files = true;
-option java_package = "br.com.example";
-option java_outer_classname = "MicronautGrpc";
-option objc_class_prefix = "HLW";
+option java_multiple_files = false;
+option java_package = "br.com.demo";
+option java_outer_classname = "DemoGrpcServer";
 
 package br.com.example;
 
-service MicronautGrpcService {
-  rpc send (MicronautGrpcRequest) returns (MicronautGrpcReply) {}
+import "google/protobuf/timestamp.proto";
+
+service DemoGrpcService {
+  rpc cadastrar (DemoGrpcRequest) returns (DemoGrpcReply) {}
 }
 
-message MicronautGrpcRequest {
+message DemoGrpcRequest {
   string name = 1;
-  string email = 2;
-  string password = 3;
+  Cargo cargo = 2;
+  repeated Endereco endereco = 3;
+  string email = 4;
+  string password = 5;
+
+  enum Cargo {
+    DEV = 0;
+    QA = 1;
+    GERENTE = 2;
+  }
+
+  message Endereco {
+    string logradouro = 1;
+    string cep = 2;
+    string complemento = 3;
+  }
 }
 
-message MicronautGrpcReply {
+message DemoGrpcReply {
   string message = 1;
+  google.protobuf.Timestamp criadoEm = 2;
 }
